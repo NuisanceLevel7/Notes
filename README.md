@@ -6,13 +6,16 @@
 
 # To Do List
 
-## Ability to restore deleted notes.
+## Ability to restore deleted notes. (COMPLETE)
 1. Add a new table for deleted items.
   + When deleting a note, move it to the deleted table.
   + Add a new route for /restore and a template showing deleted items and a restore link per deleted note.
 
-## Refactor into modules
+## Refactor into modules (COMPLETE)
 1. Move code to a notes module.
+
+# Add basic search.
+1. Just simple keyword search of he Notes DB.
 
 ## Add access control
 1. Minimum http basic auth
