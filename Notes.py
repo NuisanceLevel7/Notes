@@ -1,3 +1,4 @@
+from CRUD import CRUD
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import Form
@@ -22,9 +23,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/vengle/FlaskProj/Notes/
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
-
-
-
 class NotesStore(db.Model):
    __tablename__ = "mynotes"
    id    = db.Column(db.Integer, primary_key = True)
@@ -44,21 +42,7 @@ class RestoreDB(db.Model):
    ctime = db.Column(db.Integer)
    mtime = db.Column(db.Integer)
 
-
-
-def SaveNote(request):
-    content = request.form['NoteContent']
-    title   = request.form['NoteTitle']
-    Author = GetUser(request)
-    logging.info("Adding Note By: " + Author)
-    # Replace this with real author once issues with login are worked out.
-    #Author  = 'vengle'
-    c = int(time.time())
-    m = int(time.time())
-    entry   = NotesStore(title=title,user=Author,note=content,ctime=c,mtime=m)
-    db.session.add(entry)
-    db.session.commit()
-    return (title,content,Author)
+dbutil = CRUD(db, NotesStore, RestoreDB,logging)
 
 def UpdateNote(request):
     content = request.form['NoteContent']
@@ -111,14 +95,6 @@ def GetNote(note_id,tableobj):
     title   = result.title
     content = result.note
     return (title,content,Author,ctime,mtime)
-
-def GetUser(request):
-    auth = request.headers["Authorization"]
-    userpass = auth.split()[1]
-    details = b64decode(userpass)
-    fields = details.split(':')
-    username = fields[0] 
-    return username
 
 @app.route("/view")
 @app.route("/view/<note_id>")
@@ -192,9 +168,9 @@ def restorenote(note_id=None):
 @app.route("/new", methods=['GET','POST'])
 def new():
     if request.method == 'POST':
-        (title,content,author) = SaveNote(request)
+        (title,content,author,note_id) = dbutil.SaveNote(request)
         return render_template('viewnote.html', title=title,  
-                                 content=content, author=author)
+                                 content=content, author=author, note_id=note_id)
     msg = "Creating a new Note..."
     return render_template('new_note.html',  msg=msg)
 
