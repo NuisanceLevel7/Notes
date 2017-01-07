@@ -25,6 +25,16 @@ class NotesStore(db.Model):
    mtime = db.Column(db.Integer)
 
 
+class RestoreDB(db.Model):
+   __tablename__ = "restoredb"
+   id    = db.Column(db.Integer, primary_key = True)
+   title = db.Column(db.String(256))
+   user  = db.Column(db.String(48))
+   note  = db.Column(db.BLOB)
+   ctime = db.Column(db.Integer)
+
+
+
 def SaveNote(request):
     content = request.form['NoteContent']
     title   = request.form['NoteTitle']
@@ -53,6 +63,10 @@ def UpdateNote(request):
 
 def DeleteNote(note_id):
     result = NotesStore.query.filter(NotesStore.id == note_id).first()
+    c = int(time.time())
+    restoreentry   = RestoreDB(id=c,title=result.title,user=result.user,note=result.note,ctime=result.ctime)
+    db.session.add(restoreentry)
+    db.session.commit()
     db.session.delete(result)
     db.session.commit()
     # Fix this later. Need to return actual status.
