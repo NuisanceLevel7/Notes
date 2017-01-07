@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Edit Note</title>
+  <meta charset="UTF-8">
+  <link href="https://notes.viclab.org/static/css/notestyle.css?version=2.8" rel="stylesheet" />
+  </head>
+  <body  align="left">
+<div id="header"><br>
+<table align=left bgcolor=gray width=600>
+<tr>
+  <td><img src="https://notes.viclab.org/static/images/notes.png"></td>
+  <td><h1>{{ msg }}</h1>
+    <a href="https://notes.viclab.org"><h5>Notes Home</h2>
+  </td>
+</tr></table>
+
+</div>
+<div id="section_note"> 
+<table align=left bgcolor=#CADCD7>
+<tr>
+  <td>
+    <form action="/edit" method="post">
+    <input type="hidden" name="Note_ID" value={{ Note_ID }}>
+    <input type="hidden" name="User" value={{ User }}>
+    <input type="text" name="Title" value="{{ NoteTitle }}" size=50>
+  </td></tr>
+  <tr><td>
+    <textarea name="NoteContent" value="" rows="20" cols="50" maxlength="4096">{{ NoteContent }}</textarea>
+    <input type="submit" value="Update">
+    </form>
+  </td>
+</tr></table>
+</body>
+</html>
+

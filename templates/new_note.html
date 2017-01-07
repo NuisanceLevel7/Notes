@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head><title>New Note</title>
+  <meta charset="UTF-8">
+  <link href="https://notes.viclab.org/static/css/notestyle.css?version=2.8" rel="stylesheet" />
+  </head>
+  <body  align="left">
+<div id="header"><br>
+<table align=left bgcolor=gray width=600>
+<tr>
+  <td><img src="https://notes.viclab.org/static/images/notes.png"></td>
+  <td><h1>{{ msg }}</h1>
+    <a href="https://www.viclab.org"><h5>www.viclab.org</h2>
+  </td>
+</tr></table>
+
+</div>
+<div id="section_note"> 
+<table align=left bgcolor=#CADCD7>
+<tr>
+  <td>
+    <form action="/new" method="post">
+    <input type="text" name="NoteTitle" value="Title" size=50>
+  </td></tr>
+  <tr><td>
+    <textarea name="NoteContent" value="" rows="20" cols="50" maxlength="4096"></textarea>
+    <input type="submit" value="Save">
+    </form>
+  </td>
+</tr></table>
+</body>
+</html>
+

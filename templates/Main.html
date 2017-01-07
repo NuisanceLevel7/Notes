@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head><title>New Note</title>
+  <meta charset="UTF-8">
+  <link href="https://notes.viclab.org/static/css/notestyle.css?version=3.1" rel="stylesheet" />
+  </head>
+  <body  align="left">
+<div id="header"><br>
+<table align=left bgcolor=gray width=600>
+<tr>
+  <td><img src="https://notes.viclab.org/static/images/notes.png"></td>
+  <td><h1>{{ msg }}</h1>
+    <a href="https://www.viclab.org"><h5>www.viclab.org</h2>
+    <a href=/new><h3>Create a new note...</a>
+  </td>
+</tr></table>
+
+</div>
+<div id="section_main"> 
+<table align=left border=1 bgcolor=white>
+<tr><th>Note ID<th>Note Author<th>Note Title<th>View</tr>
+{% for result in results %}
+<tr>
+  <td>
+  {{ result.id }}
+  </td>
+  <td>
+  {{ result.user }}
+  </td>
+  <td>
+   {{ result.title }}
+  </td>
+  <td>
+  <a href=/view/{{ result.id }}>View</a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+</div>
+</body>
+</html>
+

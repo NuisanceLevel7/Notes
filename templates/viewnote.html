@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ title }} by {{ author }}</title>
+</head>
+
+<body>
+<div width=600px>
+<table border=1 align=center>
+<tr>
+<th><a href=https://notes.viclab.org>Notes Home</a>
+<th>Creation Date:<br> {{ ctime  }}</p>
+<th>Last Change:<br> {{ mtime  }}</p>
+<th><a href=/edit/{{ note_id }}><h5>Edit</h5></a>
+<th><a href=/delete/{{ note_id }}><h5>Delete</h5></a>
+</tr>
+</table>
+</div>
+<xmp theme="united" style="display:none;">
+{{ content }}
+</xmp>
+
+<script src=/static/js/v/0.2/strapdown.js></script>
+</body>
+</html>
