@@ -61,10 +61,10 @@ def SaveNote(request):
     return (title,content,Author)
 
 def UpdateNote(request):
-    logging.info("Updating Note ID: " + str(note_id))
     content = request.form['NoteContent']
     title   = request.form['Title']
     note_id   = request.form['Note_ID']
+    logging.info("Updating Note ID: " + str(note_id))
     author   = request.form['User']
     m = int(time.time())
     result = NotesStore.query.filter(NotesStore.id == note_id).first()
