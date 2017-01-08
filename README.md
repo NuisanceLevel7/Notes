@@ -7,6 +7,21 @@
 
 ## Welcome Screen
 ![Welcome Page](https://nexus.viclab.org/static/images/WelcomePage.png)
+
+## View Screen
+![Note View Page](https://nexus.viclab.org/static/images/NoteView.png)
+
+## Edit Screen
+![Edit Page](https://nexus.viclab.org/static/images/NoteEdit.png)
+
+## Notes Search Screen
+![Search Page](https://nexus.viclab.org/static/images/NoteSearch.png)
+
+## Deleted Note Recover Screen
+![Search Page](https://nexus.viclab.org/static/images/NoteRecover.png)
+
+
+
 # To Do List
 
 ## Ability to restore deleted notes. (COMPLETE)
