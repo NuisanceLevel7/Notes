@@ -4,6 +4,9 @@
 
 1. For instances where Evernotes etc isn't the best option.
 
+
+## Welcome Screen
+![Welcome Page](https://nexus.viclab.org/static/images/WelcomePage.png)
 # To Do List
 
 ## Ability to restore deleted notes. (COMPLETE)
