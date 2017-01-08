@@ -32,7 +32,7 @@
 ## Refactor into modules (COMPLETE)
 1. Move code to a notes module.
 
-# Add basic search.
+# Add basic search. (COMPLETE)
 1. Just simple keyword search of he Notes DB.
 
 ## Add access control
