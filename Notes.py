@@ -1,11 +1,13 @@
 from CRUD import CRUD
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
 from flask_wtf import Form
-from wtforms import SelectField, SubmitField, TextAreaField
+from wtforms import TextField, SubmitField, TextAreaField
 import time
 from base64 import b64decode
 import logging
+
 logging.basicConfig(filename='/home/vengle/FlaskProj/Notes/logs/NotesApp.log',
                     level=logging.DEBUG,
                     format='%(asctime)s %(message)s', 
@@ -22,13 +24,17 @@ db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/vengle/FlaskProj/Notes/NotesDB.sqlite3'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.secret_key = "I hate to tell you"
+
+class SearchForm(Form):
+   searchkey = TextField("Search")
 
 class NotesStore(db.Model):
    __tablename__ = "mynotes"
    id    = db.Column(db.Integer, primary_key = True)
    title = db.Column(db.String(256))
    user  = db.Column(db.String(48))
-   note  = db.Column(db.BLOB)  
+   note  = db.Column(db.Text(8196))
    ctime = db.Column(db.Integer)
    mtime = db.Column(db.Integer)
 
@@ -38,12 +44,11 @@ class RestoreDB(db.Model):
    id    = db.Column(db.Integer, primary_key = True)
    title = db.Column(db.String(256))
    user  = db.Column(db.String(48))
-   note  = db.Column(db.BLOB)
+   note  = db.Column(db.Text(8196))
    ctime = db.Column(db.Integer)
    mtime = db.Column(db.Integer)
 
 dbutil = CRUD(db, NotesStore, RestoreDB,logging)
-
 
 @app.route("/view")
 @app.route("/view/<note_id>")
@@ -90,12 +95,14 @@ def delete(note_id=None):
     if note_id == None:
         msg = "No Note ID Provided. Nothing Deleted..."
         results = NotesStore.query.all()
-        return render_template('Main.html', msg=msg, results=results)
+        search = SearchForm()
+        return render_template('Main.html', search=search, msg=msg, results=results)
     else:
         deleteresult = dbutil.DeleteNote(note_id)
+        search = SearchForm()
         results = NotesStore.query.all()
         msg = "Deleted Note ID: " + note_id
-        return render_template('Main.html', msg=msg, results=results)
+        return render_template('Main.html', search=search, msg=msg, results=results)
 
 
 @app.route("/restorenote/<note_id>")
@@ -103,12 +110,14 @@ def restorenote(note_id=None):
     if note_id == None:
         msg = "No Note ID Provided. Nothing Deleted..."
         results = NotesStore.query.all()
-        return render_template('Main.html', msg=msg, results=results)
+        search = SearchForm()
+        return render_template('Main.html', search=search, msg=msg, results=results)
     else:
         restoreresult = dbutil.RestoreNote(note_id)
         results = NotesStore.query.all()
+        search = SearchForm()
         msg = "Restored Note ID: " + note_id
-        return render_template('Main.html', msg=msg, results=results)
+        return render_template('Main.html', search=search, msg=msg, results=results)
 
 
 
@@ -122,11 +131,23 @@ def new():
     msg = "Creating a new Note..."
     return render_template('new_note.html',  msg=msg)
 
+
 @app.route("/")
 def hello():
     results = NotesStore.query.all()
     msg = "Welcome to Notes..."
-    return render_template('Main.html', msg=msg, results=results)
+    search = SearchForm()
+    return render_template('Main.html', search=search, msg=msg, results=results)
+
+
+@app.route("/search", methods=['GET','POST'])
+def search():
+    keyword = request.form['searchkey']
+    key = '%{}%'.format(keyword.strip())
+    results = NotesStore.query.filter(or_(NotesStore.note.like(key) ,NotesStore.title.like(key))).all()
+    msg = "Search Results for: " + keyword
+    search = SearchForm()
+    return render_template('Main.html', search=search, msg=msg, results=results)
 
 
 @app.route("/req", methods=['GET','POST'])
