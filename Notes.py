@@ -7,6 +7,10 @@ from wtforms import TextField, SubmitField, TextAreaField
 import time
 from base64 import b64decode
 import logging
+from fortune import FortuneTools
+
+fort = FortuneTools()
+fort.LoadFortunes()
 
 logging.basicConfig(filename='/home/vengle/FlaskProj/Notes/logs/NotesApp.log',
                     level=logging.DEBUG,
@@ -158,6 +162,13 @@ def req():
     fields = details.split(':')
     username = fields[0]
     return render_template('headers.html',  reqhead=username)
+
+@app.route("/fortune")
+def fortune():
+    fortunecookie = fort.GetRandom()
+    return render_template('fortune.html', fortunecookie=fortunecookie)
+
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

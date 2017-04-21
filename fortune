@@ -1,0 +1,8 @@
+#!/usr/bin/python
+
+from fortune import FortuneTools
+
+fort = FortuneTools()
+fort.LoadFortunes()
+print "\n\n" + fort.GetRandom()
+

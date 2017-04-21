@@ -1,0 +1,38 @@
+About this App
+
+# About Notes...
+
+1. Notes is a way to maintain a collection of notes from any internet browser.
+
+2. Notes uses Markdown for formatting. Plain text is rendered as plain text.
+
+3. Limits:
+  + Note content is limited to 4096 characters.
+  + The title is limited to 256 characters.
+
+4. Todo:
+  + Add search to main page
+    - Allow searching title and text content.
+  + Allow Sorting
+
+
+
+To Do for Notes
+
+h for the Notes DB.# To Do List
+
+## Ability to restore deleted notes.
+1. Add a new table for deleted items.
+  + When deleting a note, move it to the deleted table.
+  + Add a new route for /restore and a template showing deleted items and a restore link per deleted note.
+
+## Refactor into modules
+1. Move code to a notes module.
+
+## Add access control
+1. Minimum http basic auth
+2. Consider app enforced authorization
+3. Consider OAuth login with App enforced authorization. 
+
+## Add "Search" Feature
+1. Allow keyword search
