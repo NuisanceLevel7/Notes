@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head><title>Fortune</title>
-    <meta charset="UTF-8">
-    <link href="https://notes.viclab.org/static/css/notestyle.css?version=3.3" rel="stylesheet" />
-    <style>
-      body {
-        background-color: #93B874;
-      }
-    </style>  
-  </head>
-  <body  align="left" >
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+   body {
+      background-color: #93B874;
+   }
+</style>  
 <div id="header"><br>
 <p><h2>Fortune...</h2>
 <p><input type="button" value="Next.." onClick="history.go(0)">
@@ -18,6 +14,4 @@
 <pre>{{ fortunecookie }}</pre>
 <br><br>
 <a href=https://www.viclab.org>Home</a>
-</body>
-</html>
-
+{% endblock %}

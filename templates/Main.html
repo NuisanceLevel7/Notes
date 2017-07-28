@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head><title>New Note</title>
-  <meta charset="UTF-8">
-  <link href="https://notes.viclab.org/static/css/notestyle.css?version=3.3" rel="stylesheet" />
-  </head>
-  <body  align="left">
+{% extends "base.html" %}
+{% block content %}
+
+
 <div id="header"><br>
 
 
@@ -53,6 +50,5 @@
 {% endfor %}
 </table>
 </div>
-</body>
-</html>
 
+{% endblock %}
