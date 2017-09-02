@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://notes.viclab.org/static/css/styles.css" rel="stylesheet" />
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Welcome to Notes</title>
+    {% endif %}
+  </head>
+  <body>
+  <details>
+  <summary>Site Navigation...</summary>
+    <table border=0>
+      <tr><td><a href="docs/resume.pdf" target=_blank><h4>My Resume</a></td></tr>
+      <tr><td><a href="https://github.com/vicengle" target=_blank><h4>GitHub Projects</h4></h3></a></td></tr>
+      <tr><td><a href="https://www.linkedin.com/in/vicengle" target=_blank><h4>Linkedin</h4></a></td></tr>
+      <tr><td><a href="http://notes.viclab.org" target=_blank><h4>Notes</h4></a></td></tr>
+      <tr><td><a href="http://notes.viclab.org/fortune" target=_blank><h4>Fortune</h4></a></td></tr>
+      <tr><td><a href="http://www.viclab.org/about.html"><h4>About...</h4></a></td></tr>
+      <tr><td><a href="http://www.viclab.org"><h4>VicLab Home</h4></a></td></tr>
+    </table>
+  </details>
+
+    {% block content %}{% endblock %}
+  </body>
+</html>
