@@ -1,0 +1,16 @@
+{% extends "base-v2.html" %}
+{% block content %}
+
+<div width=600px>
+<table border=1 align=center>
+<tr>
+<th><a href=https://notes.viclab.org>Notes Home</a>
+<th>Creation Date:<br> {{ ctime  }}</p>
+<th>Last Change:<br> {{ mtime  }}</p>
+<th><a href=/edit/{{ note_id }}><h5>Edit</h5></a>
+<th><a href=/delete/{{ note_id }}><h5>Delete</h5></a>
+</tr>
+</table>
+</div>
+{{ content | safe }}
+{% endblock %}

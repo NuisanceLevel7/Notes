@@ -8,6 +8,8 @@ import time
 from base64 import b64decode
 import logging
 from fortune import FortuneTools
+import markdown
+import pygments
 
 fort = FortuneTools()
 fort.LoadFortunes()
@@ -29,6 +31,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/vengle/FlaskProj/Notes/
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = "I hate to tell you"
+
 
 class SearchForm(Form):
    searchkey = TextField("Search")
@@ -62,8 +65,9 @@ def view(note_id=None):
         return render_template('new_note.html',  msg=msg)
     else:
         (title,content,author,ctime,mtime) = dbutil.GetNote(note_id,NotesStore)
-        return render_template('viewnote.html', title=title,  
-                                 content=content, author=author,
+        converted2html = markdown.markdown(content, extensions = ['codehilite'])
+        return render_template('viewnote-v2.html', title=title,  
+                                 content=converted2html, author=author,
                                  ctime=ctime, mtime=mtime, note_id=note_id)
 
 @app.route("/restore")
@@ -80,8 +84,9 @@ def edit(note_id=None):
     if note_id == None:
         if request.method == 'POST':
             (title,content,author,note_id,mtime,ctime) = dbutil.UpdateNote(request)
-            return render_template('viewnote.html', title=title, 
-                            content=content, author=author, note_id=note_id,
+            converted2html = markdown.markdown(content, extensions = ['codehilite'])
+            return render_template('viewnote-v2.html', title=title, 
+                            content=converted2html, author=author, note_id=note_id,
                             mtime=mtime, ctime=ctime)
         else:
             msg = "No note id provided to /edit..."
@@ -130,8 +135,9 @@ def restorenote(note_id=None):
 def new():
     if request.method == 'POST':
         (title,content,author,note_id,mtime,ctime) = dbutil.SaveNote(request)
-        return render_template('viewnote.html', title=title,  
-                                 content=content, author=author, note_id=note_id)
+        converted2html = markdown.markdown(content, extensions = ['codehilite'])
+        return render_template('viewnote-v2.html', title=title,  
+                                 content=converted2html, author=author, note_id=note_id)
     msg = "Creating a new Note..."
     return render_template('new_note.html',  msg=msg)
 
