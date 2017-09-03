@@ -65,7 +65,7 @@ def view(note_id=None):
         return render_template('new_note.html',  msg=msg)
     else:
         (title,content,author,ctime,mtime) = dbutil.GetNote(note_id,NotesStore)
-        converted2html = markdown.markdown(content, extensions = ['codehilite'])
+        converted2html = markdown.markdown(content, extensions = ['codehilite','tables'])
         return render_template('viewnote-v2.html', title=title,  
                                  content=converted2html, author=author,
                                  ctime=ctime, mtime=mtime, note_id=note_id)
@@ -84,7 +84,7 @@ def edit(note_id=None):
     if note_id == None:
         if request.method == 'POST':
             (title,content,author,note_id,mtime,ctime) = dbutil.UpdateNote(request)
-            converted2html = markdown.markdown(content, extensions = ['codehilite'])
+            converted2html = markdown.markdown(content, extensions = ['codehilite', 'tables'])
             return render_template('viewnote-v2.html', title=title, 
                             content=converted2html, author=author, note_id=note_id,
                             mtime=mtime, ctime=ctime)
@@ -135,7 +135,7 @@ def restorenote(note_id=None):
 def new():
     if request.method == 'POST':
         (title,content,author,note_id,mtime,ctime) = dbutil.SaveNote(request)
-        converted2html = markdown.markdown(content, extensions = ['codehilite'])
+        converted2html = markdown.markdown(content, extensions = ['codehilite', 'tables'])
         return render_template('viewnote-v2.html', title=title,  
                                  content=converted2html, author=author, note_id=note_id)
     msg = "Creating a new Note..."
